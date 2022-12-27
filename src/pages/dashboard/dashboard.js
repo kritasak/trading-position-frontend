@@ -9,7 +9,7 @@ export default function Dashboard() {
     }
     function clearStorage() {
         sessionStorage.clear();
-        navigate("/");
+        window.location.reload();
     }
     return (
         <div>
