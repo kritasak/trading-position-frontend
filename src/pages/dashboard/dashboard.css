@@ -8,13 +8,6 @@
 .dashboardtwo-wrapper {
     display: flex;
     flex-direction: row;
-    align-items: right;
-    justify-content: right;
-}
-
-.dashboardthree-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: left;
-    justify-content: left;
+    align-items: center;
+    justify-content: space-between;
 }

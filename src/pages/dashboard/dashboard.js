@@ -7,7 +7,8 @@ export default function Dashboard() {
     function navigateToSetting() {
         navigate("/setting");
     }
-    function navigateToHome() {
+    function clearStorage() {
+        sessionStorage.clear();
         navigate("/");
     }
     return (
@@ -16,12 +17,13 @@ export default function Dashboard() {
                 <h1>Dashboard</h1>
             </div>
 
-            <div className="dashboardthree-wrapper"></div>
-            <p>Account:</p>
-
             <div className="dashboardtwo-wrapper">
-                <button onClick={navigateToSetting}>Setting</button>
-                <button onClick={navigateToHome}>Log Out</button>
+                <p>Account:</p>
+
+                <div>
+                    <button onClick={navigateToSetting}>Setting</button>
+                    <button onClick={clearStorage}>Log Out</button>
+                </div>
             </div>
         </div>
     );
