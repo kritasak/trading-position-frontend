@@ -1,0 +1,20 @@
+.dashboard-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboardtwo-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: right;
+    justify-content: right;
+}
+
+.dashboardthree-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    justify-content: left;
+}
