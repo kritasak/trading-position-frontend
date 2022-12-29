@@ -3,4 +3,20 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 100px 0;
+}
+.logInButton {
+    width: 300px;
+    height: 30px;
+    margin: 10px;
+    background-color: #274FD5;
+    color: white;
+    border-radius: 5px;
+}
+.signUpButton {
+    width: 300px;
+    height: 30px;
+    margin: 10px;
+    background-color: white;
+    border-radius: 5px;
 }

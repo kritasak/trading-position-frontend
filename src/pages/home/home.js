@@ -14,8 +14,12 @@ export default function Home() {
     return (
         <div className="home-wrapper">
             <h1>Trading Position Management</h1>
-            <button onClick={navigateToLogin}>Log In</button>
-            <button onClick={navigateToSignup}>Sign Up</button>
+            <button className="logInButton" onClick={navigateToLogin}>
+                Log In
+            </button>
+            <button className="signUpButton" onClick={navigateToSignup}>
+                Sign Up
+            </button>
         </div>
     );
 }
