@@ -21,16 +21,16 @@ export default function Dashboard() {
 
     return (
         <div>
-            <div className="dashboard-wrapper">
-                <h1>Dashboard</h1>
-            </div>
-
-            <div className="dashboardtwo-wrapper">
+            <div className="dashboard-topper">
                 <p>Account: {userEmail}</p>
 
                 <div>
-                    <button onClick={navigateToSetting}>Setting</button>
-                    <button onClick={clearStorage}>Log Out</button>
+                    <button className="button-top" onClick={navigateToSetting}>
+                        Setting
+                    </button>
+                    <button className="button-top" onClick={clearStorage}>
+                        Log Out
+                    </button>
                 </div>
             </div>
         </div>
