@@ -12,19 +12,39 @@ async function loginUser(credentials) {
     }).then((data) => data.json());
 }
 
+async function checkLogin(credentials) {
+    return fetch("http://127.0.0.1:5000/getinfo", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+    }).then((data) => data.json());
+}
+
 export default function Login({ setToken }) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [warning, setWarning] = useState();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = await loginUser({
+        const result = await checkLogin({
             email,
             password,
         });
-        console.log(token);
-        setToken(token);
-        sessionStorage.setItem("email", email);
+        console.log(result.result);
+        if (result.result === "Successfully Log In") {
+            const token = await loginUser({
+                email,
+                password,
+            });
+            console.log(token);
+            setToken(token);
+            sessionStorage.setItem("email", email);
+        } else {
+            setWarning(result.result);
+        }
     };
 
     return (
@@ -42,6 +62,7 @@ export default function Login({ setToken }) {
                 <div>
                     <button type="submit">Submit</button>
                 </div>
+                <h4>{warning}</h4>
             </form>
         </div>
     );
