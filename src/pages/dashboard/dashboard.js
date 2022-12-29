@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./dashboard.css";
 
-export default function Dashboard() {
+export default function Dashboard(props) {
     const navigate = useNavigate();
     function navigateToSetting() {
         navigate("/setting");
@@ -18,7 +18,7 @@ export default function Dashboard() {
             </div>
 
             <div className="dashboardtwo-wrapper">
-                <p>Account:</p>
+                <p>Account: {props.userEmail}</p>
 
                 <div>
                     <button onClick={navigateToSetting}>Setting</button>

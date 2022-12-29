@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./login.css";
 
@@ -13,12 +12,7 @@ async function loginUser(credentials) {
     }).then((data) => data.json());
 }
 
-export default function Login({ setToken }) {
-    // const navigate = useNavigate();
-    // function navigateToDashboard() {
-    //     navigate("/dashboard");
-    // }
-
+export default function Login({ setToken, setUserEmail }) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
@@ -30,6 +24,7 @@ export default function Login({ setToken }) {
         });
         console.log(token);
         setToken(token);
+        setUserEmail(email);
     };
 
     return (
