@@ -53,14 +53,24 @@ export default function Login({ setToken }) {
             <form className="form" onSubmit={handleSubmit}>
                 <label>
                     <p>Email</p>
-                    <input type="text" onChange={(e) => setEmail(e.target.value)} />
+                    <input
+                        className="input-form"
+                        type="text"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
                 </label>
                 <label>
                     <p>Password</p>
-                    <input type="password" onChange={(e) => setPassword(e.target.value)} />
+                    <input
+                        className="input-form"
+                        type="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
                 </label>
                 <div>
-                    <button type="submit">Submit</button>
+                    <button className="button" type="submit">
+                        Submit
+                    </button>
                 </div>
                 <h4>{warning}</h4>
             </form>
