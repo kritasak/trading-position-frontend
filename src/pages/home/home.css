@@ -10,11 +10,31 @@
     height: 40px;
     margin: 20px;
     font-size: 16px;
-    background-color: #274FD5;
+    background-color: #3e69f5;
     color: white;
     border-radius: 10px;
-    border-color: #274FD5;      
+    border-color: #274FD5;  
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;    
 }
+
+.logInButton:hover {
+    width: 300px;
+    height: 40px;
+    margin: 20px;
+    font-size: 16px;
+    background-color: #002bb8;
+    color: white;
+    border-radius: 10px;
+    border-color: #274FD5;   
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;    
+}
+
 
 .signUpButton {
     width: 300px;

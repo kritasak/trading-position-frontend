@@ -14,15 +14,38 @@
 .input-form {
     width: 300px;
     height: 25px;
-    background-color: #D9D9D9;
-    border-radius: 5px;
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    border-color: #d9d9d9;
 }
+
 .button {
     width: 300px;
-    height: 30px;
-    background-color: #274FD5;
+    height: 40px;
+    margin: 50px;
+    font-size: 16px;
+    background-color: #3e69f5;
     color: white;
-    border-radius: 5px;
-    margin: 50px
+    border-radius: 10px;
+    border-color: #274FD5;  
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    width: 300px;
+    height: 40px;
+    margin: 50px;
+    font-size: 16px;
+    background-color:  #002bb8;
+    color: white;
+    border-radius: 10px;
+    border-color: #274FD5;  
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
 }
   
