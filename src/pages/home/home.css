@@ -7,16 +7,21 @@
 }
 .logInButton {
     width: 300px;
-    height: 30px;
-    margin: 10px;
+    height: 40px;
+    margin: 20px;
+    font-size: 16px;
     background-color: #274FD5;
     color: white;
-    border-radius: 5px;
+    border-radius: 10px;
+    border-color: #274FD5;      
 }
+
 .signUpButton {
     width: 300px;
-    height: 30px;
+    height: 40px;
     margin: 10px;
+    font-size: 16px;
     background-color: white;
-    border-radius: 5px;
+    border-radius: 10px;
+    border-color: #274FD5
 }
