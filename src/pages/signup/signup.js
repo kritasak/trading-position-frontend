@@ -51,21 +51,35 @@ export default function Signup() {
     return (
         <div className="signup-wrapper">
             <h1>Please Sign Up</h1>
-            <form onSubmit={handleSubmit}>
+            <form className="form" onSubmit={handleSubmit}>
                 <label>
                     <p>Email</p>
-                    <input type="text" onChange={(e) => setEmail(e.target.value)} />
+                    <input
+                        className="input-form"
+                        type="text"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
                 </label>
                 <label>
                     <p>Password</p>
-                    <input type="password" onChange={(e) => setPassword(e.target.value)} />
+                    <input
+                        className="input-form"
+                        type="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
                 </label>
                 <label>
                     <p>Confirm Password</p>
-                    <input type="password" onChange={(e) => setConPassword(e.target.value)} />
+                    <input
+                        className="input-form"
+                        type="password"
+                        onChange={(e) => setConPassword(e.target.value)}
+                    />
                 </label>
                 <div>
-                    <button type="submit">Submit</button>
+                    <button className="button" type="submit">
+                        Submit
+                    </button>
                 </div>
             </form>
             <h4>{warning}</h4>
