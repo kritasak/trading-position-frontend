@@ -4,10 +4,6 @@
     align-items: center;
     font-family: sans-serif;
     padding: 20px 0;
-} 
-.App {
-    font-family: sans-serif;
-    text-align: center;
 }
 .form {
     display: flex;
@@ -28,8 +24,5 @@
     color: white;
     border-radius: 5px;
     margin: 50px
-}
-.form .form__custom-button {
-    margin-top: 50px;
 }
   
