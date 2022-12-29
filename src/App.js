@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./pages/dashboard/dashboard";
 import Setting from "./pages/setting/setting";
@@ -10,17 +10,13 @@ import useToken from "./components/useToken";
 
 function App() {
     const { token, setToken } = useToken();
-    const [userEmail, setUserEmail] = useState();
 
     if (!token) {
         return (
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route
-                        path="/login"
-                        element={<Login setToken={setToken} setUserEmail={setUserEmail} />}
-                    />
+                    <Route path="/login" element={<Login setToken={setToken} />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
@@ -32,7 +28,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Navigate to="/dashboard" />} />
-                <Route path="/dashboard" element={<Dashboard userEmail={userEmail} />} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/setting" element={<Setting />} />
                 <Route path="*" element={<Navigate to="/dashboard" />} />
             </Routes>

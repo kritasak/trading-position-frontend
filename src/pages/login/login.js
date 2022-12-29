@@ -24,7 +24,7 @@ export default function Login({ setToken, setUserEmail }) {
         });
         console.log(token);
         setToken(token);
-        setUserEmail(email);
+        sessionStorage.setItem("email", email);
     };
 
     return (

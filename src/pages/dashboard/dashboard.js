@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./dashboard.css";
 
-export default function Dashboard(props) {
+export default function Dashboard() {
     const navigate = useNavigate();
+    const [userEmail, setUserEmail] = useState();
+
     function navigateToSetting() {
         navigate("/setting");
     }
+
     function clearStorage() {
         sessionStorage.clear();
         window.location.reload();
     }
+
+    useEffect(() => {
+        setUserEmail(sessionStorage.getItem("email"));
+    }, []);
+
     return (
         <div>
             <div className="dashboard-wrapper">
@@ -18,7 +26,7 @@ export default function Dashboard(props) {
             </div>
 
             <div className="dashboardtwo-wrapper">
-                <p>Account: {props.userEmail}</p>
+                <p>Account: {userEmail}</p>
 
                 <div>
                     <button onClick={navigateToSetting}>Setting</button>
