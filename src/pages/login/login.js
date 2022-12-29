@@ -12,7 +12,7 @@ async function loginUser(credentials) {
     }).then((data) => data.json());
 }
 
-export default function Login({ setToken, setUserEmail }) {
+export default function Login({ setToken }) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
