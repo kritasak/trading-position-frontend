@@ -5,6 +5,7 @@ import "./setting.css";
 export default function Setting() {
     const navigate = useNavigate();
     const [userEmail, setUserEmail] = useState();
+    const [userData, setUserData] = useState();
 
     function navigateToDashboard() {
         navigate("/dashboard");
@@ -17,6 +18,18 @@ export default function Setting() {
 
     useEffect(() => {
         setUserEmail(sessionStorage.getItem("email"));
+    }, []);
+
+    useEffect(() => {
+        fetch("http://127.0.0.1:5000/getinfo", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: sessionStorage.getItem("email") }),
+        })
+            .then((response) => response.json())
+            .then((data) => setUserData(data));
     }, []);
 
     return (
@@ -33,6 +46,14 @@ export default function Setting() {
                     </button>
                 </div>
             </div>
+            {userData ? (
+                <div>
+                    <h3>{userData["email"]}</h3>
+                    <h3>{userData["password"]}</h3>
+                </div>
+            ) : (
+                <div></div>
+            )}
         </div>
     );
 }
