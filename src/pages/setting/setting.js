@@ -13,6 +13,8 @@ export default function Setting() {
 
     const oldPassword = useRef();
     const newPassword = useRef();
+    const publicKey = useRef();
+    const secretKey = useRef();
 
     function navigateToDashboard() {
         navigate("/dashboard");
@@ -49,7 +51,21 @@ export default function Setting() {
         setEditedKey(key);
     }
 
-    function closeEdit() {
+    async function closeEdit(key, publicKey, secretKey) {
+        await fetch("http://127.0.0.1:5000/editapi", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: userData["email"],
+                exchange: key,
+                publicKey: publicKey,
+                secretKey: secretKey,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => setUserData(data));
         setEditedKey("");
     }
 
@@ -154,10 +170,7 @@ export default function Setting() {
                                 {!(editedKey === key) ? (
                                     <text>{value["API_KEY"]}</text>
                                 ) : (
-                                    <input
-                                        defaultValue={value["API_KEY"]}
-                                        onChange={(e) => console.log(e.target.value)}
-                                    />
+                                    <input defaultValue={value["API_KEY"]} ref={publicKey} />
                                 )}
                             </div>
                             <div>
@@ -165,10 +178,7 @@ export default function Setting() {
                                 {!(editedKey === key) ? (
                                     <text>{value["API_SECRET"]}</text>
                                 ) : (
-                                    <input
-                                        defaultValue={value["API_SECRET"]}
-                                        onChange={(e) => console.log(e.target.value)}
-                                    />
+                                    <input defaultValue={value["API_SECRET"]} ref={secretKey} />
                                 )}
                             </div>
                             <div>
@@ -184,7 +194,17 @@ export default function Setting() {
                                         <button>Delete</button>
                                     </div>
                                 ) : (
-                                    <button onClick={closeEdit}>Confirm</button>
+                                    <button
+                                        onClick={() => {
+                                            closeEdit(
+                                                editedKey,
+                                                publicKey.current.value,
+                                                secretKey.current.value,
+                                            );
+                                        }}
+                                    >
+                                        Confirm
+                                    </button>
                                 )}
                             </div>
                         </div>
