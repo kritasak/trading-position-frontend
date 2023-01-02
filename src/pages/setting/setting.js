@@ -9,7 +9,7 @@ export default function Setting() {
     const [isPasswordChange, setIsPasswordChange] = useState(false);
     const [isCorrect, setIsCorrect] = useState(true);
 
-    const [isEdit, setIsEdit] = useState(false);
+    const [editedKey, setEditedKey] = useState("");
 
     const oldPassword = useRef();
     const newPassword = useRef();
@@ -45,12 +45,12 @@ export default function Setting() {
         }
     }
 
-    function openEdit() {
-        setIsEdit(true);
+    function openEdit(key) {
+        setEditedKey(key);
     }
 
     function closeEdit() {
-        setIsEdit(false);
+        setEditedKey("");
     }
 
     useEffect(() => {
@@ -151,7 +151,7 @@ export default function Setting() {
                             <text>{key}</text>
                             <div>
                                 <text>Public API KEY: </text>
-                                {!isEdit ? (
+                                {!(editedKey === key) ? (
                                     <text>{value["API_KEY"]}</text>
                                 ) : (
                                     <input
@@ -162,7 +162,7 @@ export default function Setting() {
                             </div>
                             <div>
                                 <text>Secret API KEY: </text>
-                                {!isEdit ? (
+                                {!(editedKey === key) ? (
                                     <text>{value["API_SECRET"]}</text>
                                 ) : (
                                     <input
@@ -172,9 +172,15 @@ export default function Setting() {
                                 )}
                             </div>
                             <div>
-                                {!isEdit ? (
+                                {!(editedKey === key) ? (
                                     <div>
-                                        <button onClick={openEdit}>Edit</button>
+                                        <button
+                                            onClick={() => {
+                                                openEdit(key);
+                                            }}
+                                        >
+                                            Edit
+                                        </button>
                                         <button>Delete</button>
                                     </div>
                                 ) : (
