@@ -13,3 +13,40 @@
     color: white;
     cursor: pointer;
 }
+
+.container {
+    background-color: #d9d9d9;
+    padding: 5px;
+}
+.user-info {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+}
+.password-change {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+}
+.top-space {
+    margin-top: 20px;
+}
+.right-space {
+    margin-right: 20px;
+}
+
+.seperator {
+    padding: 10px;
+}
+
+.api-info {
+    background-color: white;
+    margin: 10px;
+    padding: 5px 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+}

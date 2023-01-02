@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./setting.css";
 
@@ -6,6 +6,13 @@ export default function Setting() {
     const navigate = useNavigate();
     const [userEmail, setUserEmail] = useState();
     const [userData, setUserData] = useState();
+    const [isPasswordChange, setIsPasswordChange] = useState(false);
+    const [isCorrect, setIsCorrect] = useState(true);
+
+    const [isEdit, setIsEdit] = useState(false);
+
+    const oldPassword = useRef();
+    const newPassword = useRef();
 
     function navigateToDashboard() {
         navigate("/dashboard");
@@ -16,8 +23,39 @@ export default function Setting() {
         window.location.reload();
     }
 
+    async function changepassword(oldPassword, newPassword) {
+        if (oldPassword === userData["password"]) {
+            await fetch("http://127.0.0.1:5000/changepassword", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: userData["email"],
+                    old: oldPassword,
+                    new: newPassword,
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => setUserData(data));
+            setIsCorrect(true);
+            setIsPasswordChange(false);
+        } else {
+            setIsCorrect(false);
+        }
+    }
+
+    function openEdit() {
+        setIsEdit(true);
+    }
+
+    function closeEdit() {
+        setIsEdit(false);
+    }
+
     useEffect(() => {
         setUserEmail(sessionStorage.getItem("email"));
+        console.log("useEffect is call");
     }, []);
 
     useEffect(() => {
@@ -47,9 +85,104 @@ export default function Setting() {
                 </div>
             </div>
             {userData ? (
-                <div>
-                    <h3>{userData["email"]}</h3>
-                    <h3>{userData["password"]}</h3>
+                <div className="container">
+                    <div className="user-info">
+                        <text>User: {userData["email"]}</text>
+                        <div className="top-space">
+                            <text className="right-space">Password: {userData["password"]}</text>
+                            {!isPasswordChange ? (
+                                <button
+                                    onClick={() => {
+                                        setIsPasswordChange(true);
+                                    }}
+                                >
+                                    Change Password
+                                </button>
+                            ) : (
+                                <></>
+                            )}
+                        </div>
+                        {isPasswordChange ? (
+                            <div className="password-change">
+                                <div className="right-space">
+                                    <text>Old Password: </text>
+                                    <input ref={oldPassword} />
+                                </div>
+                                <div className="right-space">
+                                    <text>New Password: </text>
+                                    <input ref={newPassword} />
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        changepassword(
+                                            oldPassword.current.value,
+                                            newPassword.current.value,
+                                        );
+                                    }}
+                                >
+                                    Confirm
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        setIsPasswordChange(false);
+                                        setIsCorrect(true);
+                                    }}
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        ) : (
+                            <></>
+                        )}
+                        {!isCorrect ? (
+                            <div className="top-space">
+                                <text>Mismatched Old Password!</text>
+                            </div>
+                        ) : (
+                            <></>
+                        )}
+                    </div>
+                    <div>
+                        <text className="seperator">Add Exchanges & API KEY</text>
+                        <button>Add</button>
+                    </div>
+                    {Object.entries(userData["api"]).map(([key, value]) => (
+                        <div className="api-info">
+                            <text>{key}</text>
+                            <div>
+                                <text>Public API KEY: </text>
+                                {!isEdit ? (
+                                    <text>{value["API_KEY"]}</text>
+                                ) : (
+                                    <input
+                                        defaultValue={value["API_KEY"]}
+                                        onChange={(e) => console.log(e.target.value)}
+                                    />
+                                )}
+                            </div>
+                            <div>
+                                <text>Secret API KEY: </text>
+                                {!isEdit ? (
+                                    <text>{value["API_SECRET"]}</text>
+                                ) : (
+                                    <input
+                                        defaultValue={value["API_SECRET"]}
+                                        onChange={(e) => console.log(e.target.value)}
+                                    />
+                                )}
+                            </div>
+                            <div>
+                                {!isEdit ? (
+                                    <div>
+                                        <button onClick={openEdit}>Edit</button>
+                                        <button>Delete</button>
+                                    </div>
+                                ) : (
+                                    <button onClick={closeEdit}>Confirm</button>
+                                )}
+                            </div>
+                        </div>
+                    ))}
                 </div>
             ) : (
                 <div></div>
