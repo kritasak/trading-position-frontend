@@ -26,7 +26,13 @@
     padding: 20px;
     border-radius: 10px;
 }
-.password-change {
+.password-change-button {
+    color: blue;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.password-change-tab {
     margin-top: 20px;
     display: flex;
     flex-direction: row;
@@ -40,13 +46,17 @@
 
 .seperator {
     padding: 10px;
+    font-weight: 600;
 }
 
-.api-info {
+.api-list {
     background-color: white;
     margin: 10px;
-    padding: 5px 20px;
+    padding: 10px 20px;
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
+}
+.warning-text {
+    color: red;
 }

@@ -11,7 +11,8 @@ export default function Setting() {
 
     const [isAdd, setIsAdd] = useState(false);
     const [editedKey, setEditedKey] = useState("");
-    const [isBlank, setIsBlank] = useState(false);
+    const [isAddBlank, setIsAddBlank] = useState(false);
+    const [isEditBlank, setIsEditBlank] = useState(false);
 
     const oldPassword = useRef();
     const newPassword = useRef();
@@ -54,7 +55,7 @@ export default function Setting() {
 
     async function confirmAdd(exchange, publicKey, secretKey) {
         if (exchange === "" || publicKey === "" || secretKey === "") {
-            setIsBlank(true);
+            setIsAddBlank(true);
         } else {
             await fetch("http://127.0.0.1:5000/addapi", {
                 method: "POST",
@@ -71,26 +72,31 @@ export default function Setting() {
                 .then((response) => response.json())
                 .then((data) => setUserData(data));
             setIsAdd(false);
-            setIsBlank(false);
+            setIsAddBlank(false);
         }
     }
 
     async function confirmEdit(key, publicKey, secretKey) {
-        await fetch("http://127.0.0.1:5000/editapi", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                email: userData["email"],
-                exchange: key,
-                publicKey: publicKey,
-                secretKey: secretKey,
-            }),
-        })
-            .then((response) => response.json())
-            .then((data) => setUserData(data));
-        setEditedKey("");
+        if (publicKey === "" || secretKey === "") {
+            setIsEditBlank(true);
+        } else {
+            await fetch("http://127.0.0.1:5000/editapi", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: userData["email"],
+                    exchange: key,
+                    publicKey: publicKey,
+                    secretKey: secretKey,
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => setUserData(data));
+            setEditedKey("");
+            setIsEditBlank(false);
+        }
     }
 
     async function deleteKey(key) {
@@ -146,19 +152,20 @@ export default function Setting() {
                         <div className="top-space">
                             <text className="right-space">Password: {userData["password"]}</text>
                             {!isPasswordChange ? (
-                                <button
+                                <text
+                                    className="password-change-button"
                                     onClick={() => {
                                         setIsPasswordChange(true);
                                     }}
                                 >
                                     Change Password
-                                </button>
+                                </text>
                             ) : (
                                 <></>
                             )}
                         </div>
                         {isPasswordChange ? (
-                            <div className="password-change">
+                            <div className="password-change-tab">
                                 <div className="right-space">
                                     <text>Old Password: </text>
                                     <input ref={oldPassword} />
@@ -191,7 +198,7 @@ export default function Setting() {
                         )}
                         {!isCorrect ? (
                             <div className="top-space">
-                                <text>Mismatched Old Password!</text>
+                                <text className="warning-text">Mismatched Old Password!</text>
                             </div>
                         ) : (
                             <></>
@@ -209,7 +216,7 @@ export default function Setting() {
                     </div>
                     {isAdd ? (
                         <div>
-                            <div className="api-info">
+                            <div className="api-list">
                                 <div>
                                     <text>Exchange: </text>
                                     <input ref={addedExchange} />
@@ -237,69 +244,89 @@ export default function Setting() {
                                     <button
                                         onClick={() => {
                                             setIsAdd(false);
-                                            setIsBlank(false);
+                                            setIsAddBlank(false);
                                         }}
                                     >
                                         Cancel
                                     </button>
                                 </div>
                             </div>
-                            {isBlank ? <text>Please fill in the blank!</text> : <></>}
+                            {isAddBlank ? (
+                                <text className="warning-text">Please fill in the blank!</text>
+                            ) : (
+                                <></>
+                            )}
                         </div>
                     ) : (
                         <></>
                     )}
                     {Object.entries(userData["api"]).map(([key, value]) => (
-                        <div className="api-info">
-                            <text>{key}</text>
-                            <div>
-                                <text>Public API KEY: </text>
-                                {!(editedKey === key) ? (
-                                    <text>{value["API_KEY"]}</text>
-                                ) : (
-                                    <input defaultValue={value["API_KEY"]} ref={publicKey} />
-                                )}
+                        <div>
+                            <div className="api-list">
+                                <text>{key}</text>
+                                <div>
+                                    <text>Public API KEY: </text>
+                                    {!(editedKey === key) ? (
+                                        <text>{value["API_KEY"]}</text>
+                                    ) : (
+                                        <input defaultValue={value["API_KEY"]} ref={publicKey} />
+                                    )}
+                                </div>
+                                <div>
+                                    <text>Secret API KEY: </text>
+                                    {!(editedKey === key) ? (
+                                        <text>{value["API_SECRET"]}</text>
+                                    ) : (
+                                        <input defaultValue={value["API_SECRET"]} ref={secretKey} />
+                                    )}
+                                </div>
+                                <div>
+                                    {!(editedKey === key) ? (
+                                        <div>
+                                            <button
+                                                onClick={() => {
+                                                    setEditedKey(key);
+                                                }}
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    deleteKey(key);
+                                                }}
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            <button
+                                                onClick={() => {
+                                                    confirmEdit(
+                                                        editedKey,
+                                                        publicKey.current.value,
+                                                        secretKey.current.value,
+                                                    );
+                                                }}
+                                            >
+                                                Confirm
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    setEditedKey("");
+                                                }}
+                                            >
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                            <div>
-                                <text>Secret API KEY: </text>
-                                {!(editedKey === key) ? (
-                                    <text>{value["API_SECRET"]}</text>
-                                ) : (
-                                    <input defaultValue={value["API_SECRET"]} ref={secretKey} />
-                                )}
-                            </div>
-                            <div>
-                                {!(editedKey === key) ? (
-                                    <div>
-                                        <button
-                                            onClick={() => {
-                                                setEditedKey(key);
-                                            }}
-                                        >
-                                            Edit
-                                        </button>
-                                        <button
-                                            onClick={() => {
-                                                deleteKey(key);
-                                            }}
-                                        >
-                                            Delete
-                                        </button>
-                                    </div>
-                                ) : (
-                                    <button
-                                        onClick={() => {
-                                            confirmEdit(
-                                                editedKey,
-                                                publicKey.current.value,
-                                                secretKey.current.value,
-                                            );
-                                        }}
-                                    >
-                                        Confirm
-                                    </button>
-                                )}
-                            </div>
+                            {editedKey === key && isEditBlank ? (
+                                <text className="warning-text">Please fill in the key!</text>
+                            ) : (
+                                <></>
+                            )}
                         </div>
                     ))}
                 </div>
