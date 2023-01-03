@@ -9,10 +9,15 @@ export default function Setting() {
     const [isPasswordChange, setIsPasswordChange] = useState(false);
     const [isCorrect, setIsCorrect] = useState(true);
 
+    const [isAdd, setIsAdd] = useState(false);
     const [editedKey, setEditedKey] = useState("");
+    const [isBlank, setIsBlank] = useState(false);
 
     const oldPassword = useRef();
     const newPassword = useRef();
+    const addedExchange = useRef();
+    const addedPublicKey = useRef();
+    const addedSecretKey = useRef();
     const publicKey = useRef();
     const secretKey = useRef();
 
@@ -47,11 +52,30 @@ export default function Setting() {
         }
     }
 
-    function openEdit(key) {
-        setEditedKey(key);
+    async function confirmAdd(exchange, publicKey, secretKey) {
+        if (exchange === "" || publicKey === "" || secretKey === "") {
+            setIsBlank(true);
+        } else {
+            await fetch("http://127.0.0.1:5000/addapi", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: userData["email"],
+                    exchange: exchange,
+                    publicKey: publicKey,
+                    secretKey: secretKey,
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => setUserData(data));
+            setIsAdd(false);
+            setIsBlank(false);
+        }
     }
 
-    async function closeEdit(key, publicKey, secretKey) {
+    async function confirmEdit(key, publicKey, secretKey) {
         await fetch("http://127.0.0.1:5000/editapi", {
             method: "POST",
             headers: {
@@ -67,6 +91,21 @@ export default function Setting() {
             .then((response) => response.json())
             .then((data) => setUserData(data));
         setEditedKey("");
+    }
+
+    async function deleteKey(key) {
+        await fetch("http://127.0.0.1:5000/deleteapi", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: userData["email"],
+                exchange: key,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => setUserData(data));
     }
 
     useEffect(() => {
@@ -160,8 +199,56 @@ export default function Setting() {
                     </div>
                     <div>
                         <text className="seperator">Add Exchanges & API KEY</text>
-                        <button>Add</button>
+                        <button
+                            onClick={() => {
+                                setIsAdd(true);
+                            }}
+                        >
+                            Add
+                        </button>
                     </div>
+                    {isAdd ? (
+                        <div>
+                            <div className="api-info">
+                                <div>
+                                    <text>Exchange: </text>
+                                    <input ref={addedExchange} />
+                                </div>
+                                <div>
+                                    <text>Public API KEY: </text>
+                                    <input ref={addedPublicKey} />
+                                </div>
+                                <div>
+                                    <text>Secret API KEY: </text>
+                                    <input ref={addedSecretKey} />
+                                </div>
+                                <div>
+                                    <button
+                                        onClick={() => {
+                                            confirmAdd(
+                                                addedExchange.current.value,
+                                                addedPublicKey.current.value,
+                                                addedSecretKey.current.value,
+                                            );
+                                        }}
+                                    >
+                                        Confirm
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setIsAdd(false);
+                                            setIsBlank(false);
+                                        }}
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                            {isBlank ? <text>Please fill in the blank!</text> : <></>}
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                     {Object.entries(userData["api"]).map(([key, value]) => (
                         <div className="api-info">
                             <text>{key}</text>
@@ -186,17 +273,23 @@ export default function Setting() {
                                     <div>
                                         <button
                                             onClick={() => {
-                                                openEdit(key);
+                                                setEditedKey(key);
                                             }}
                                         >
                                             Edit
                                         </button>
-                                        <button>Delete</button>
+                                        <button
+                                            onClick={() => {
+                                                deleteKey(key);
+                                            }}
+                                        >
+                                            Delete
+                                        </button>
                                     </div>
                                 ) : (
                                     <button
                                         onClick={() => {
-                                            closeEdit(
+                                            confirmEdit(
                                                 editedKey,
                                                 publicKey.current.value,
                                                 secretKey.current.value,
@@ -211,7 +304,9 @@ export default function Setting() {
                     ))}
                 </div>
             ) : (
-                <div></div>
+                <div>
+                    <text>No User Data</text>
+                </div>
             )}
         </div>
     );
