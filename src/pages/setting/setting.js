@@ -150,7 +150,8 @@ export default function Setting() {
                     <div className="user-info">
                         <text>User: {userData["email"]}</text>
                         <div className="top-space">
-                            <text className="right-space">Password: {userData["password"]}</text>
+                            <text>Password: </text>
+                            <text className="hide-password">{userData["password"]}</text>
                             {!isPasswordChange ? (
                                 <text
                                     className="password-change-button"
