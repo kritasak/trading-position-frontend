@@ -72,7 +72,7 @@ export default function Login({ setToken }) {
                         Submit
                     </button>
                 </div>
-                <h4>{warning}</h4>
+                <text className="warning-text">{warning}</text>
             </form>
         </div>
     );

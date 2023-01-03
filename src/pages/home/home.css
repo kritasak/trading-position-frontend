@@ -46,3 +46,17 @@
     border-color: #274FD5
 }
 
+.signUpButton:hover {
+    width: 300px;
+    height: 40px;
+    margin: 10px;
+    font-size: 16px;
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    border-color: #000000;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+}
+

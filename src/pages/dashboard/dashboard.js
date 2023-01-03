@@ -33,6 +33,39 @@ export default function Dashboard() {
                     </button>
                 </div>
             </div>
+            <div className="backPatch">
+                <p>Dashboard</p>
+                <div className="leftPatch">
+                    <p>Left</p>
+                </div>
+                <div className="rightPatch">
+                    <p>Right</p>
+                    <h1>A Fancy Table</h1>
+
+                    <table id="customers">
+                        <tr>
+                            <th>Company</th>
+                            <th>Contact</th>
+                            <th>Country</th>
+                        </tr>
+                        <tr>
+                            <td>Alfreds Futterkiste</td>
+                            <td>Maria Anders</td>
+                            <td>Germany</td>
+                        </tr>
+                        <tr>
+                            <td>Berglunds snabbköp</td>
+                            <td>Christina Berglund</td>
+                            <td>Sweden</td>
+                        </tr>
+                        <tr>
+                            <td>Centro comercial Moctezuma</td>
+                            <td>Francisco Chang</td>
+                            <td>Mexico</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
     );
 }
