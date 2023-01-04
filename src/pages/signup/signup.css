@@ -51,10 +51,10 @@
     color: #ff0000;
 } 
 
-.loginButton {    
-    font-size: 16px;
-    color: black;  
-    transition: 0.3s;
-    text-decoration: none;
+.login-text {    
+    color: #274FD5;
+    margin-left: 5px;
+    font-size: 14px;
+    text-decoration: underline;
     cursor: pointer;
 }

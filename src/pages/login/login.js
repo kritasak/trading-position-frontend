@@ -77,11 +77,13 @@ export default function Login({ setToken }) {
                         Submit
                     </button>
                 </div>
-
+                <div>
+                    <text>Haven't register?</text>
+                    <text className="signup-text" onClick={navigateToSignup}>
+                        Sign up here
+                    </text>
+                </div>
                 <text className="warning-text">{warning}</text>
-                <text className="signup-text" onClick={navigateToSignup}>
-                    Sign up here
-                </text>
             </form>
         </div>
     );

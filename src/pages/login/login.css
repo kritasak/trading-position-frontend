@@ -63,9 +63,8 @@
 
 .signup-text {
     color: #274FD5;
-    margin-top: 10px;
-}
-
-a:link {
+    margin-left: 5px;
+    font-size: 14px;
     text-decoration: underline;
-  }
+    cursor: pointer;
+}

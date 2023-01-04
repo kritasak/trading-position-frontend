@@ -82,13 +82,13 @@ export default function Signup() {
                     </button>
                 </div>
             </form>
-            <text className="warning-text">{warning}</text>
             <div>
                 <text>Already have an account?</text>
-                <button className="loginButton" onClick={navigateToLogin}>
+                <text className="login-text" onClick={navigateToLogin}>
                     Log in
-                </button>
+                </text>
             </div>
+            <text className="warning-text">{warning}</text>
         </div>
     );
 }
