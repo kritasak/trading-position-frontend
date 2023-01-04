@@ -37,7 +37,7 @@
     height: 40px;
     margin: 50px;
     font-size: 16px;
-    background-color:  #001d7b;
+    background-color:  #002bb9;
     color: white;
     border-radius: 10px;
     border-color: #274FD5;  
@@ -50,3 +50,11 @@
 .warning-text {
     color: #ff0000;
 } 
+
+.loginButton {    
+    font-size: 16px;
+    color: black;  
+    transition: 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+}

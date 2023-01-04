@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import "./login.css";
 
 async function loginUser(credentials) {
@@ -23,6 +24,10 @@ async function checkLogin(credentials) {
 }
 
 export default function Login({ setToken }) {
+    const navigate = useNavigate();
+    function navigateToSignup() {
+        navigate("/signup");
+    }
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [warning, setWarning] = useState();
@@ -72,7 +77,11 @@ export default function Login({ setToken }) {
                         Submit
                     </button>
                 </div>
+
                 <text className="warning-text">{warning}</text>
+                <text className="signup-text" onClick={navigateToSignup}>
+                    Sign up here
+                </text>
             </form>
         </div>
     );
