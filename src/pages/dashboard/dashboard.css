@@ -70,29 +70,6 @@
     margin-top: 5px;
 }
 
-.leftPatch {
-    display: flex;
-    flex-direction: column;
-    background: rgb(217, 255, 0);
-    width: 600px;
-    height: 500px;
-    margin-top: 30px;
-    margin-left: 5px;
-    margin-right: 50px;
-    margin-bottom: 50px;
-    
-}
-.rightPatch {
-    display: flex;
-    flex-direction: column;
-    background: rgb(0, 255, 247);
-    width: 600px;
-    height: 500px;
-    margin-top: 30px;
-    margin-left: 50px;
-    margin-right: 5px;
-    margin-bottom: 50px;
-}
 
 #customers {
     font-family: Arial, Helvetica, sans-serif;
@@ -107,7 +84,7 @@
   
   #customers tr:nth-child(even){background-color: #f2f2f2;}
   
-  #customers tr:hover {background-color: #ddd;}
+  /*#customers tr:hover {background-color: #ddd;}*/
   
   #customers th {
     padding-top: 12px;

@@ -70,24 +70,25 @@ export default function Dashboard() {
                     <h4>Trading History</h4>
                     <table id="customers">
                         <tr>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Time</th>
+                            <th>Buy/Sell</th>
+                            <th>Price per Coin</th>
+                            <th>Amount</th>
+                            <th>Receive</th>
                         </tr>
                         <tr>
-                            <td>Alfreds Futterkiste</td>
-                            <td>Maria Anders</td>
-                            <td>Germany</td>
+                            <td>2021-01-10 18:56:31</td>
+                            <td>Buy</td>
+                            <td>1,000,000 THB</td>
+                            <td>100,000 THB</td>
+                            <td>0.1 BTC</td>
                         </tr>
                         <tr>
-                            <td>Berglunds snabbköp</td>
-                            <td>Christina Berglund</td>
-                            <td>Sweden</td>
-                        </tr>
-                        <tr>
-                            <td>Centro comercial Moctezuma</td>
-                            <td>Francisco Chang</td>
-                            <td>Mexico</td>
+                            <td>2021-02-10 12:24:39</td>
+                            <td>Sell</td>
+                            <td>1,200,000 THB</td>
+                            <td>0.0833 BTC</td>
+                            <td>100,000 THB</td>
                         </tr>
                     </table>
                 </div>
