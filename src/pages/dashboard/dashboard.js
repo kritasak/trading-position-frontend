@@ -6,6 +6,7 @@ import TradingViewWidget from "../../components/TradingViewWidget";
 export default function Dashboard() {
     const navigate = useNavigate();
     const [userEmail, setUserEmail] = useState();
+    const [userData, setUserData] = useState();
 
     function navigateToSetting() {
         navigate("/setting");
@@ -18,6 +19,19 @@ export default function Dashboard() {
 
     useEffect(() => {
         setUserEmail(sessionStorage.getItem("email"));
+        console.log("useEffect is call");
+    }, []);
+
+    useEffect(() => {
+        fetch("http://127.0.0.1:5000/getinfo", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: sessionStorage.getItem("email") }),
+        })
+            .then((response) => response.json())
+            .then((data) => setUserData(data));
     }, []);
 
     return (
