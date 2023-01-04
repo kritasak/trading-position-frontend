@@ -93,3 +93,10 @@
     background-color: #04AA6D;
     color: white;
   }
+
+  #customers td {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    font-size: 12px;
+  }

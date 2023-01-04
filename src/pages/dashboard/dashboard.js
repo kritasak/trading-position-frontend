@@ -7,6 +7,8 @@ export default function Dashboard() {
     const navigate = useNavigate();
     const [userEmail, setUserEmail] = useState();
     const [userData, setUserData] = useState();
+    const [currency, setCurrency] = useState("BTC");
+    const [historyData, setHistoryData] = useState([]);
 
     function navigateToSetting() {
         navigate("/setting");
@@ -15,6 +17,24 @@ export default function Dashboard() {
     function clearStorage() {
         sessionStorage.clear();
         window.location.reload();
+    }
+
+    function handleChange(event) {
+        console.log(event.target.value);
+        getHistory("THB_" + event.target.value);
+        setCurrency(event.target.value);
+    }
+
+    async function getHistory(sym) {
+        await fetch("http://127.0.0.1:5000/history", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: sessionStorage.getItem("email"), sym: sym }),
+        })
+            .then((response) => response.json())
+            .then((data) => setHistoryData(data));
     }
 
     useEffect(() => {
@@ -32,6 +52,15 @@ export default function Dashboard() {
         })
             .then((response) => response.json())
             .then((data) => setUserData(data));
+        fetch("http://127.0.0.1:5000/history", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: sessionStorage.getItem("email"), sym: "THB_BTC" }),
+        })
+            .then((response) => response.json())
+            .then((data) => setHistoryData(data));
     }, []);
 
     return (
@@ -64,7 +93,11 @@ export default function Dashboard() {
                         </div>
                         <div className="filter-right-container">
                             <text>Currency</text>
-                            <text>BTC</text>
+                            <select onChange={handleChange}>
+                                <option value="BTC">BTC</option>
+                                <option value="ETH">ETH</option>
+                                <option value="LTC">LTC</option>
+                            </select>
                         </div>
                     </div>
                     <h4>Trading History</h4>
@@ -74,22 +107,24 @@ export default function Dashboard() {
                             <th>Buy/Sell</th>
                             <th>Price per Coin</th>
                             <th>Amount</th>
-                            <th>Receive</th>
+                            <th>Amount THB</th>
                         </tr>
-                        <tr>
-                            <td>2021-01-10 18:56:31</td>
-                            <td>Buy</td>
-                            <td>1,000,000 THB</td>
-                            <td>100,000 THB</td>
-                            <td>0.1 BTC</td>
-                        </tr>
-                        <tr>
-                            <td>2021-02-10 12:24:39</td>
-                            <td>Sell</td>
-                            <td>1,200,000 THB</td>
-                            <td>0.0833 BTC</td>
-                            <td>100,000 THB</td>
-                        </tr>
+                        {historyData.map((oneData, index) => (
+                            <tr key={index}>
+                                <td>{oneData["date"]}</td>
+                                <td>
+                                    {oneData["side"]}, {oneData["type"]}
+                                </td>
+                                <td>{oneData["rate"]} THB</td>
+                                <td>
+                                    {oneData["amount"]} {currency}
+                                </td>
+                                <td>
+                                    {parseFloat(oneData["rate"]) * parseFloat(oneData["amount"])}{" "}
+                                    THB
+                                </td>
+                            </tr>
+                        ))}
                     </table>
                 </div>
             </div>
