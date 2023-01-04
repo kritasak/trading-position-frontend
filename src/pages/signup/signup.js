@@ -82,7 +82,7 @@ export default function Signup() {
                     </button>
                 </div>
             </form>
-            <h4>{warning}</h4>
+            <text className="warning-text">{warning}</text>
         </div>
     );
 }

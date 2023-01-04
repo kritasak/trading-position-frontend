@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./dashboard.css";
+import TradingViewWidget from "../../components/TradingViewWidget";
 
 export default function Dashboard() {
     const navigate = useNavigate();
@@ -33,15 +34,26 @@ export default function Dashboard() {
                     </button>
                 </div>
             </div>
-            <div className="backPatch">
-                <p>Dashboard</p>
-                <div className="leftPatch">
-                    <p>Left</p>
+            <div className="dashboard-container">
+                <div className="left-container">
+                    <text>Price Chart</text>
+                    <div className="graph-box">
+                        <TradingViewWidget />
+                    </div>
                 </div>
-                <div className="rightPatch">
-                    <p>Right</p>
-                    <h1>A Fancy Table</h1>
 
+                <div className="right-container">
+                    <div className="filter-container">
+                        <div className="filter-left-container">
+                            <text>Exchange</text>
+                            <text>Bitkub</text>
+                        </div>
+                        <div className="filter-right-container">
+                            <text>Currency</text>
+                            <text>BTC</text>
+                        </div>
+                    </div>
+                    <h4>Trading History</h4>
                     <table id="customers">
                         <tr>
                             <th>Company</th>
