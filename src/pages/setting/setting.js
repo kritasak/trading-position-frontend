@@ -264,24 +264,32 @@ export default function Setting() {
                     {Object.entries(userData["api"]).map(([key, value]) => (
                         <div>
                             <div className="api-list">
-                                <text>{key}</text>
-                                <div>
-                                    <text>Public API KEY: </text>
-                                    {!(editedKey === key) ? (
-                                        <text>{value["API_KEY"]}</text>
-                                    ) : (
-                                        <input defaultValue={value["API_KEY"]} ref={publicKey} />
-                                    )}
+                                <text className="api-exchange">{key}</text>
+                                <div className="api-key">
+                                    <div className="api-each-key">
+                                        <text>Public API KEY: </text>
+                                        {!(editedKey === key) ? (
+                                            <text>{value["API_KEY"]}</text>
+                                        ) : (
+                                            <input
+                                                defaultValue={value["API_KEY"]}
+                                                ref={publicKey}
+                                            />
+                                        )}
+                                    </div>
+                                    <div className="api-each-key">
+                                        <text>Secret API KEY: </text>
+                                        {!(editedKey === key) ? (
+                                            <text>{value["API_SECRET"]}</text>
+                                        ) : (
+                                            <input
+                                                defaultValue={value["API_SECRET"]}
+                                                ref={secretKey}
+                                            />
+                                        )}
+                                    </div>
                                 </div>
-                                <div>
-                                    <text>Secret API KEY: </text>
-                                    {!(editedKey === key) ? (
-                                        <text>{value["API_SECRET"]}</text>
-                                    ) : (
-                                        <input defaultValue={value["API_SECRET"]} ref={secretKey} />
-                                    )}
-                                </div>
-                                <div>
+                                <div className="api-button">
                                     {!(editedKey === key) ? (
                                         <div>
                                             <button

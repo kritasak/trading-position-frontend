@@ -57,6 +57,24 @@
     display: flex;
     justify-content: space-between;
 }
+.api-exchange {
+    width: 150px;
+}
+.api-key {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.api-each-key {
+    flex: 1;
+}
+.api-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 150px;
+}
+
 .warning-text {
     color: red;
 }
