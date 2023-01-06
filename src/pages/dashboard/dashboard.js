@@ -8,7 +8,8 @@ export default function Dashboard() {
     const [userEmail, setUserEmail] = useState();
     const [userData, setUserData] = useState();
     const [currency, setCurrency] = useState("BTC");
-    const [historyData, setHistoryData] = useState([]);
+    const [symbol, setSymbol] = useState([]);
+    const [historyData, setHistoryData] = useState();
 
     function navigateToSetting() {
         navigate("/setting");
@@ -21,8 +22,8 @@ export default function Dashboard() {
 
     function handleChange(event) {
         console.log(event.target.value);
-        getHistory("THB_" + event.target.value);
-        setCurrency(event.target.value);
+        getHistory(event.target.value);
+        setCurrency(event.target.value.substring(4));
     }
 
     async function getHistory(sym) {
@@ -31,7 +32,7 @@ export default function Dashboard() {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ email: sessionStorage.getItem("email"), sym: sym }),
+            body: JSON.stringify({ email: userData["email"], exchange: "bitkub", sym: sym }),
         })
             .then((response) => response.json())
             .then((data) => setHistoryData(data));
@@ -57,10 +58,20 @@ export default function Dashboard() {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ email: sessionStorage.getItem("email"), sym: "THB_BTC" }),
+            body: JSON.stringify({
+                email: sessionStorage.getItem("email"),
+                exchange: "bitkub",
+                sym: "THB_BTC",
+            }),
         })
             .then((response) => response.json())
             .then((data) => setHistoryData(data));
+    }, []);
+
+    useEffect(() => {
+        fetch("https://api.bitkub.com/api/market/symbols")
+            .then((response) => response.json())
+            .then((data) => setSymbol(data["result"]));
     }, []);
 
     return (
@@ -94,9 +105,11 @@ export default function Dashboard() {
                         <div className="filter-right-container">
                             <text>Currency</text>
                             <select onChange={handleChange}>
-                                <option value="BTC">BTC</option>
-                                <option value="ETH">ETH</option>
-                                <option value="LTC">LTC</option>
+                                {symbol.map((sym, index) => (
+                                    <option key={index} value={sym["symbol"]}>
+                                        {sym["symbol"].substring(4)}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                     </div>
@@ -109,23 +122,35 @@ export default function Dashboard() {
                             <th>Amount</th>
                             <th>Amount THB</th>
                         </tr>
-                        {historyData.map((oneData, index) => (
-                            <tr key={index}>
-                                <td>{oneData["date"]}</td>
-                                <td>
-                                    {oneData["side"]}, {oneData["type"]}
-                                </td>
-                                <td>{oneData["rate"]} THB</td>
-                                <td>
-                                    {oneData["amount"]} {currency}
-                                </td>
-                                <td>
-                                    {parseFloat(oneData["rate"]) * parseFloat(oneData["amount"])}{" "}
-                                    THB
-                                </td>
-                            </tr>
-                        ))}
+                        {historyData && historyData.length !== 0 ? (
+                            historyData.map((oneData, index) => (
+                                <tr key={index}>
+                                    <td>{oneData["date"]}</td>
+                                    <td>
+                                        {oneData["side"]}, {oneData["type"]}
+                                    </td>
+                                    <td>{oneData["rate"]} THB</td>
+                                    <td>
+                                        {oneData["amount"]} {currency}
+                                    </td>
+                                    <td>
+                                        {(
+                                            parseFloat(oneData["rate"]) *
+                                            parseFloat(oneData["amount"])
+                                        ).toFixed(4)}{" "}
+                                        THB
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <></>
+                        )}
                     </table>
+                    {!historyData || historyData.length === 0 ? (
+                        <text className="no-data">No History Data!</text>
+                    ) : (
+                        <></>
+                    )}
                 </div>
             </div>
         </div>
