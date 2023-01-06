@@ -124,23 +124,45 @@ export default function Dashboard() {
                         </tr>
                         {historyData && historyData.length !== 0 ? (
                             historyData.map((oneData, index) => (
-                                <tr key={index}>
-                                    <td>{oneData["date"]}</td>
-                                    <td>
-                                        {oneData["side"]}, {oneData["type"]}
-                                    </td>
-                                    <td>{oneData["rate"]} THB</td>
-                                    <td>
-                                        {oneData["amount"]} {currency}
-                                    </td>
-                                    <td>
-                                        {(
-                                            parseFloat(oneData["rate"]) *
-                                            parseFloat(oneData["amount"])
-                                        ).toFixed(4)}{" "}
-                                        THB
-                                    </td>
-                                </tr>
+                                <>
+                                    {oneData["side"] === "buy" ? (
+                                        <tr key={index} className="bg-buy-table">
+                                            <td>{oneData["date"]}</td>
+                                            <td>
+                                                {oneData["side"]}, {oneData["type"]}
+                                            </td>
+                                            <td>{oneData["rate"]} THB</td>
+                                            <td>
+                                                {oneData["amount"]} {currency}
+                                            </td>
+                                            <td>
+                                                {(
+                                                    parseFloat(oneData["rate"]) *
+                                                    parseFloat(oneData["amount"])
+                                                ).toFixed(4)}{" "}
+                                                THB
+                                            </td>
+                                        </tr>
+                                    ) : (
+                                        <tr key={index} className="bg-sell-table">
+                                            <td>{oneData["date"]}</td>
+                                            <td>
+                                                {oneData["side"]}, {oneData["type"]}
+                                            </td>
+                                            <td>{oneData["rate"]} THB</td>
+                                            <td>
+                                                {oneData["amount"]} {currency}
+                                            </td>
+                                            <td>
+                                                {(
+                                                    parseFloat(oneData["rate"]) *
+                                                    parseFloat(oneData["amount"])
+                                                ).toFixed(4)}{" "}
+                                                THB
+                                            </td>
+                                        </tr>
+                                    )}
+                                </>
                             ))
                         ) : (
                             <></>
