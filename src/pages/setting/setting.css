@@ -5,13 +5,23 @@
     justify-content: space-between;
     background-color: black;
     color: white;
-    padding: 0px 30px;
+    padding: 15px 30px;
+}
+.account-topper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.person-icon {
+    margin-right: 10px;
+    font-size: 18px;
 }
 .button-top {
     padding: 0px 10px;
     background-color: black;
     color: white;
     cursor: pointer;
+    font-size: 16px;
 }
 
 .container {
@@ -45,8 +55,14 @@
 }
 
 .seperator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     padding: 10px;
+}
+.topic-seperator {
     font-weight: 600;
+    margin-right: 10px;
 }
 
 .api-list {
@@ -55,6 +71,7 @@
     padding: 10px 20px;
     border-radius: 10px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 .api-exchange {
@@ -91,3 +108,28 @@
     height: 16px;
     margin-right: 20px;
   }
+
+.add-icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+.edit-icon {
+    font-size: 22px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.delete-icon {
+    font-size: 22px;
+    cursor: pointer;
+}
+.confirm-icon {
+    color: green;
+    font-size: 22px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.cancel-icon {
+    color: red;
+    font-size: 22px;
+    cursor: pointer;
+}

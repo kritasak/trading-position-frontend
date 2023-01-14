@@ -5,11 +5,20 @@
     justify-content: space-between;
     background-color: black;
     color: white;
-    padding: 0px 30px;
+    padding: 15px 30px;
+}
+.account-topper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.person-icon {
+    margin-right: 10px;
+    font-size: 18px;
 }
 .button-top {
     padding: 0px 10px;
-    background-color: rgb(254, 2, 2);
+    background-color: black;
     color: white;
     cursor: pointer;
     font-size: 16px;

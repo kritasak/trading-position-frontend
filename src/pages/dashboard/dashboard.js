@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./dashboard.css";
 import TradingViewWidget from "../../components/TradingViewWidget";
+import { BsPersonCircle } from "react-icons/bs";
 
 export default function Dashboard() {
     const navigate = useNavigate();
@@ -77,8 +78,10 @@ export default function Dashboard() {
     return (
         <div>
             <div className="dashboard-topper">
-                <p>Account: {userEmail}</p>
-
+                <div className="account-topper">
+                    <BsPersonCircle className="person-icon" />
+                    <text>Account: {userEmail}</text>
+                </div>
                 <div>
                     <button className="button-top" onClick={navigateToSetting}>
                         Setting

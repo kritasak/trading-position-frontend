@@ -1,6 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./setting.css";
+import {
+    BsPersonCircle,
+    BsFillPlusCircleFill,
+    BsFillTrashFill,
+    BsFillPenFill,
+    BsCheckLg,
+    BsXLg,
+} from "react-icons/bs";
 
 export default function Setting() {
     const navigate = useNavigate();
@@ -134,8 +142,10 @@ export default function Setting() {
     return (
         <div>
             <div className="setting-topper">
-                <p>Account: {userEmail}</p>
-
+                <div className="account-topper">
+                    <BsPersonCircle className="person-icon" />
+                    <text>Account: {userEmail}</text>
+                </div>
                 <div>
                     <button className="button-top" onClick={navigateToDashboard}>
                         Dashboard
@@ -175,24 +185,22 @@ export default function Setting() {
                                     <text>New Password: </text>
                                     <input ref={newPassword} />
                                 </div>
-                                <button
+                                <BsCheckLg
+                                    className="confirm-icon"
                                     onClick={() => {
                                         changepassword(
                                             oldPassword.current.value,
                                             newPassword.current.value,
                                         );
                                     }}
-                                >
-                                    Confirm
-                                </button>
-                                <button
+                                />
+                                <BsXLg
+                                    className="cancel-icon"
                                     onClick={() => {
                                         setIsPasswordChange(false);
                                         setIsCorrect(true);
                                     }}
-                                >
-                                    Cancel
-                                </button>
+                                />
                             </div>
                         ) : (
                             <></>
@@ -205,15 +213,14 @@ export default function Setting() {
                             <></>
                         )}
                     </div>
-                    <div>
-                        <text className="seperator">Add Exchanges & API KEY</text>
-                        <button
+                    <div className="seperator">
+                        <text className="topic-seperator">Add Exchanges & API KEY</text>
+                        <BsFillPlusCircleFill
+                            className="add-icon"
                             onClick={() => {
                                 setIsAdd(true);
                             }}
-                        >
-                            Add
-                        </button>
+                        />
                     </div>
                     {isAdd ? (
                         <div>
@@ -231,7 +238,8 @@ export default function Setting() {
                                     <input ref={addedSecretKey} />
                                 </div>
                                 <div>
-                                    <button
+                                    <BsCheckLg
+                                        className="confirm-icon"
                                         onClick={() => {
                                             confirmAdd(
                                                 addedExchange.current.value,
@@ -239,17 +247,14 @@ export default function Setting() {
                                                 addedSecretKey.current.value,
                                             );
                                         }}
-                                    >
-                                        Confirm
-                                    </button>
-                                    <button
+                                    />
+                                    <BsXLg
+                                        className="cancel-icon"
                                         onClick={() => {
                                             setIsAdd(false);
                                             setIsAddBlank(false);
                                         }}
-                                    >
-                                        Cancel
-                                    </button>
+                                    />
                                 </div>
                             </div>
                             {isAddBlank ? (
@@ -292,24 +297,23 @@ export default function Setting() {
                                 <div className="api-button">
                                     {!(editedKey === key) ? (
                                         <div>
-                                            <button
+                                            <BsFillPenFill
+                                                className="edit-icon"
                                                 onClick={() => {
                                                     setEditedKey(key);
                                                 }}
-                                            >
-                                                Edit
-                                            </button>
-                                            <button
+                                            />
+                                            <BsFillTrashFill
+                                                className="delete-icon"
                                                 onClick={() => {
                                                     deleteKey(key);
                                                 }}
-                                            >
-                                                Delete
-                                            </button>
+                                            />
                                         </div>
                                     ) : (
                                         <div>
-                                            <button
+                                            <BsCheckLg
+                                                className="confirm-icon"
                                                 onClick={() => {
                                                     confirmEdit(
                                                         editedKey,
@@ -317,16 +321,13 @@ export default function Setting() {
                                                         secretKey.current.value,
                                                     );
                                                 }}
-                                            >
-                                                Confirm
-                                            </button>
-                                            <button
+                                            />
+                                            <BsXLg
+                                                className="cancel-icon"
                                                 onClick={() => {
                                                     setEditedKey("");
                                                 }}
-                                            >
-                                                Cancel
-                                            </button>
+                                            />
                                         </div>
                                     )}
                                 </div>
