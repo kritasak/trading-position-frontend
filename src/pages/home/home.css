@@ -35,7 +35,6 @@
     cursor: pointer;    
 }
 
-
 .signUpButton {
     width: 300px;
     height: 40px;
@@ -59,4 +58,9 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+img {
+    display: block;
+    max-width: 200%;
+  }
 
