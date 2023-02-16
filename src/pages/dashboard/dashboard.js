@@ -3,13 +3,18 @@ import { useNavigate } from "react-router-dom";
 import "./dashboard.css";
 import TradingViewWidget from "../../components/TradingViewWidget";
 import { BsPersonCircle } from "react-icons/bs";
+import { bitkubSymbols, binanceSymbols } from "../../data/data";
 
 export default function Dashboard() {
     const navigate = useNavigate();
     const [userEmail, setUserEmail] = useState();
     const [userData, setUserData] = useState();
-    const [currency, setCurrency] = useState("BTC");
-    const [symbol, setSymbol] = useState([]);
+    const [exchange, setExchange] = useState("bitkub");
+    const [currency, setCurrency] = useState({
+        symbol: "THB_BTC",
+        baseAsset: "BTC",
+        quoteAsset: "THB",
+    });
     const [historyData, setHistoryData] = useState();
 
     function navigateToSetting() {
@@ -21,19 +26,31 @@ export default function Dashboard() {
         window.location.reload();
     }
 
-    function handleChange(event) {
+    function exchangeHandleChange(event) {
         console.log(event.target.value);
-        getHistory(event.target.value);
-        setCurrency(event.target.value.substring(4));
+        setExchange(event.target.value);
+        if (event.target.value === "bitkub") {
+            getHistory("bitkub", "THB_BTC");
+            setCurrency({ symbol: "THB_BTC", baseAsset: "BTC", quoteAsset: "THB" });
+        } else {
+            getHistory("binance", "ETHBTC");
+            setCurrency({ symbol: "ETHBTC", baseAsset: "ETH", quoteAsset: "BTC" });
+        }
     }
 
-    async function getHistory(sym) {
+    function symbolHandleChange(event) {
+        console.log(JSON.parse(event.target.value));
+        getHistory(exchange, JSON.parse(event.target.value)["symbol"]);
+        setCurrency(JSON.parse(event.target.value));
+    }
+
+    async function getHistory(exchange, sym) {
         await fetch("http://127.0.0.1:5000/history", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ email: userData["email"], exchange: "bitkub", sym: sym }),
+            body: JSON.stringify({ email: userData["email"], exchange: exchange, sym: sym }),
         })
             .then((response) => response.json())
             .then((data) => setHistoryData(data));
@@ -69,11 +86,11 @@ export default function Dashboard() {
             .then((data) => setHistoryData(data));
     }, []);
 
-    useEffect(() => {
-        fetch("https://api.bitkub.com/api/market/symbols")
-            .then((response) => response.json())
-            .then((data) => setSymbol(data["result"]));
-    }, []);
+    // useEffect(() => {
+    //     fetch("https://api.bitkub.com/api/market/symbols")
+    //         .then((response) => response.json())
+    //         .then((data) => setSymbol(data["result"]));
+    // }, []);
 
     return (
         <div>
@@ -103,16 +120,25 @@ export default function Dashboard() {
                     <div className="filter-container">
                         <div className="filter-left-container">
                             <text>Exchange</text>
-                            <text>Bitkub</text>
+                            <select onChange={exchangeHandleChange}>
+                                <option value="bitkub">Bitkub</option>
+                                <option value="binance">Binance</option>
+                            </select>
                         </div>
                         <div className="filter-right-container">
                             <text>Currency</text>
-                            <select onChange={handleChange}>
-                                {symbol.map((sym, index) => (
-                                    <option key={index} value={sym["symbol"]}>
-                                        {sym["symbol"].substring(4)}
-                                    </option>
-                                ))}
+                            <select onChange={symbolHandleChange}>
+                                {exchange === "bitkub"
+                                    ? bitkubSymbols.map((symInfo, index) => (
+                                          <option key={index} value={JSON.stringify(symInfo)}>
+                                              {symInfo["symbol"]}
+                                          </option>
+                                      ))
+                                    : binanceSymbols.map((symInfo, index) => (
+                                          <option key={index} value={JSON.stringify(symInfo)}>
+                                              {symInfo["symbol"]}
+                                          </option>
+                                      ))}
                             </select>
                         </div>
                     </div>
@@ -122,8 +148,8 @@ export default function Dashboard() {
                             <th>Time</th>
                             <th>Buy/Sell</th>
                             <th>Price per Coin</th>
-                            <th>Amount</th>
-                            <th>Amount THB</th>
+                            <th>Amount {currency["baseAsset"]}</th>
+                            <th>Amount {currency["quoteAsset"]}</th>
                         </tr>
                         {historyData && historyData.length !== 0 ? (
                             historyData.map((oneData, index) => (
@@ -131,37 +157,29 @@ export default function Dashboard() {
                                     {oneData["side"] === "buy" ? (
                                         <tr key={index} className="bg-buy-table">
                                             <td>{oneData["date"]}</td>
+                                            <td>{oneData["side"]}</td>
                                             <td>
-                                                {oneData["side"]}, {oneData["type"]}
-                                            </td>
-                                            <td>{oneData["rate"]} THB</td>
-                                            <td>
-                                                {oneData["amount"]} {currency}
+                                                {oneData["price"]} {currency["quoteAsset"]}
                                             </td>
                                             <td>
-                                                {(
-                                                    parseFloat(oneData["rate"]) *
-                                                    parseFloat(oneData["amount"])
-                                                ).toFixed(4)}{" "}
-                                                THB
+                                                {oneData["amountBase"]} {currency["baseAsset"]}
+                                            </td>
+                                            <td>
+                                                {oneData["amountQuote"]} {currency["quoteAsset"]}
                                             </td>
                                         </tr>
                                     ) : (
                                         <tr key={index} className="bg-sell-table">
                                             <td>{oneData["date"]}</td>
+                                            <td>{oneData["side"]}</td>
                                             <td>
-                                                {oneData["side"]}, {oneData["type"]}
-                                            </td>
-                                            <td>{oneData["rate"]} THB</td>
-                                            <td>
-                                                {oneData["amount"]} {currency}
+                                                {oneData["price"]} {currency["quoteAsset"]}
                                             </td>
                                             <td>
-                                                {(
-                                                    parseFloat(oneData["rate"]) *
-                                                    parseFloat(oneData["amount"])
-                                                ).toFixed(4)}{" "}
-                                                THB
+                                                {oneData["amountBase"]} {currency["baseAsset"]}
+                                            </td>
+                                            <td>
+                                                {oneData["amountQuote"]} {currency["quoteAsset"]}
                                             </td>
                                         </tr>
                                     )}
