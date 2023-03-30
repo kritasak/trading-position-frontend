@@ -114,6 +114,7 @@ export default function Dashboard() {
                     <div className="graph-box">
                         <TradingViewWidget />
                     </div>
+                    <h4>Balances</h4>
                 </div>
 
                 <div className="right-container">

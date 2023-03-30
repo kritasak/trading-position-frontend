@@ -179,11 +179,11 @@ export default function Setting() {
                             <div className="password-change-tab">
                                 <div className="right-space">
                                     <text>Old Password: </text>
-                                    <input ref={oldPassword} />
+                                    <input type="password" ref={oldPassword} />
                                 </div>
                                 <div className="right-space">
                                     <text>New Password: </text>
-                                    <input ref={newPassword} />
+                                    <input type="password" ref={newPassword} />
                                 </div>
                                 <BsCheckLg
                                     className="confirm-icon"
