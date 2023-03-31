@@ -16,6 +16,7 @@ export default function Dashboard() {
         quoteAsset: "THB",
     });
     const [historyData, setHistoryData] = useState();
+    const [balanceData, setBalanceData] = useState();
 
     function navigateToSetting() {
         navigate("/setting");
@@ -30,9 +31,11 @@ export default function Dashboard() {
         console.log(event.target.value);
         setExchange(event.target.value);
         if (event.target.value === "bitkub") {
+            getBalance("bitkub");
             getHistory("bitkub", "THB_BTC");
             setCurrency({ symbol: "THB_BTC", baseAsset: "BTC", quoteAsset: "THB" });
         } else {
+            getBalance("binance");
             getHistory("binance", "ETHBTC");
             setCurrency({ symbol: "ETHBTC", baseAsset: "ETH", quoteAsset: "BTC" });
         }
@@ -54,6 +57,18 @@ export default function Dashboard() {
         })
             .then((response) => response.json())
             .then((data) => setHistoryData(data));
+    }
+
+    async function getBalance(exchange) {
+        await fetch("http://127.0.0.1:5000/balance", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: userData["email"], exchange: exchange }),
+        })
+            .then((response) => response.json())
+            .then((data) => setBalanceData(data));
     }
 
     useEffect(() => {
@@ -84,6 +99,18 @@ export default function Dashboard() {
         })
             .then((response) => response.json())
             .then((data) => setHistoryData(data));
+        fetch("http://127.0.0.1:5000/balance", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: sessionStorage.getItem("email"),
+                exchange: "bitkub",
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => setBalanceData(data));
     }, []);
 
     // useEffect(() => {
@@ -114,7 +141,21 @@ export default function Dashboard() {
                     <div className="graph-box">
                         <TradingViewWidget />
                     </div>
-                    <h4>Balances</h4>
+                    <h3>Balances</h3>
+                    {balanceData && balanceData.length !== 0 ? (
+                        <div className="balance-container">
+                            {balanceData.map((oneData, index) => (
+                                <div key={index} className="balance-row">
+                                    <text className="asset-name">{oneData["asset"]}</text>
+                                    <text className="asset-amount">
+                                        {oneData["free"]} {oneData["asset"]}
+                                    </text>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                 </div>
 
                 <div className="right-container">
@@ -143,7 +184,7 @@ export default function Dashboard() {
                             </select>
                         </div>
                     </div>
-                    <h4>Trading History</h4>
+                    <h3>Trading History</h3>
                     <table id="customers">
                         <tr>
                             <th>Time</th>

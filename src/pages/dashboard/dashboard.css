@@ -83,6 +83,39 @@
     margin: 40px;
 }
 
+.balance-container {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+}
+.balance-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 2px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(206, 231, 176);
+}
+.asset-name {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+} 
+.asset-amount {
+    display: flex;
+    flex: 3;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+  
+
 .bg-sell-table {
     background-color: rgb(231, 176, 176);
 }
