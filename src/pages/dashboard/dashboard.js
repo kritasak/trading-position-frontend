@@ -154,7 +154,7 @@ export default function Dashboard() {
                             ))}
                         </div>
                     ) : (
-                        <></>
+                        <text className="no-data">No Balance Data!</text>
                     )}
                 </div>
 
