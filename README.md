@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+# Trading Position Management Platform using Python
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A Senior Year Project (Project Manager & Full Stack Developer)
 
-## Available Scripts
+## Project Members
 
-In the project directory, you can run:
+-   ### **Kritasak Udompongsanont**
+-   ### **Jinnipha Bhumtakwong**
 
-### `npm start`
+Information and Communication Engineering (ICE)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+International School of Engineering (ISE), Chulalongkorn University
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Description
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Cryptocurrency traders regularly face minor problems when they trade on different websites that cause inconvenience since the traders have to complete authentication over and over again and have to switch tabs or windows regularly, which consumes too much time and may cause confusion and further inconvenience while trading. Moreover, the user interface design of most websites contains too much information on one page, which frequently leads to distraction and confusion.
 
-### `npm run build`
+Our website, **A Trading Position Management Platform**, solves these problems by providing users with easy access to their accounts across multiple exchanges. By simply inputting their API Keys into our website, users can seamlessly switch between exchanges without the need to log in and authenticate repeatedly. Our centralized platform supports API integration with various exchanges, enabling users to access and manage their accounts effortlessly.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Moreover, our website consists of necessary features including user accounts, price charts, and trading history as the main functions. With a well-organized alignment of our user interface design, the users can find and use these functions more easily, which will be beneficial for new users to pro users.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Requirements
 
-### `npm run eject`
+To run this project locally, you will need to have the following tools:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+-   React.js (Node.js)
+-   Python Flask (for Backend Repository)
+-   MongoDB
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Installation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Clone this repository:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+git clone https://github.com/kritasak/trading-position-frontend.git
+```
 
-## Learn More
+2. Navigate to the project directory:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+cd trading-position-frontend
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Install the required packages:
 
-### Code Splitting
+```
+npm install [package-name]
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Usage
 
-### Analyzing the Bundle Size
+To start the webpage, run the following command:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+npm start
+```
 
-### Making a Progressive Web App
+The web interface should now be running at `http://localhost:3000`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+To sign up or login, the API should be run first which can be found at [Trading-position-backend](https://github.com/kritasak/trading-position-backend) repository
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## More Information
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+GitHub: [Kritasak](https://github.com/kritasak)
