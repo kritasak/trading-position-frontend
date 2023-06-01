@@ -4,8 +4,8 @@ A Senior Year Project (Project Manager & Full Stack Developer)
 
 ## Project Members
 
--   ### **Kritasak Udompongsanont**
--   ### **Jinnipha Bhumtakwong**
+-   **Kritasak Udompongsanont**
+-   **Jinnipha Bhumtakwong**
 
 Information and Communication Engineering (ICE)
 
