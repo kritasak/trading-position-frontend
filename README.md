@@ -11,8 +11,6 @@ Information and Communication Engineering (ICE)
 
 International School of Engineering (ISE), Chulalongkorn University
 
----
-
 ## Description
 
 Cryptocurrency traders regularly face minor problems when they trade on different websites that cause inconvenience since the traders have to complete authentication over and over again and have to switch tabs or windows regularly, which consumes too much time and may cause confusion and further inconvenience while trading. Moreover, the user interface design of most websites contains too much information on one page, which frequently leads to distraction and confusion.
@@ -62,8 +60,6 @@ npm start
 The web interface should now be running at `http://localhost:3000`.
 
 To sign up or login, the API should be run first which can be found at [Trading-position-backend](https://github.com/kritasak/trading-position-backend) repository
-
----
 
 ## More Information
 
